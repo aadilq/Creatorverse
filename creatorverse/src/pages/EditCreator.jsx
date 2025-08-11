@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../client"
-import { useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 
 
 function EditCreator(){
@@ -10,73 +10,94 @@ function EditCreator(){
         description: '', 
         imageURL: ''
     });
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const { id } = useParams();
+
+    const { creatorID } = useParams();
+
 
     useEffect(() => {
+
         const fetchContentCreator = async () => {
-            try{
-                setLoading(true);
-                const { data, error} = await supabase
-                .from("creators")
-                .select("*")
-                .eq("id", id)
-                .single()
+            console.log("User ID: ", creatorID)
+            console.log('Fetching user with ID:', creatorID)
+            const { data, error} = await supabase.
+            from("creators").
+            select('*')
+            .eq("name",creatorID)
+            .limit(1)
 
-                if(error){
-                    throw error;
-                }
-                if(data){
-                    setFormData(data);
-                }
+            console.log('Supabase response:', { data, error })
+            if(error){
+                console.error("error fetching data:", error.message);
             }
-            catch(error){
-                setError(error.message);
+            else if(data && data.length > 0 && data[0]){
+                console.log("Successfully retrieved form data", data)
+                setFormData({
+                    name: data[0].name || 'Fallback', 
+                    url: data[0].url || '',
+                    description: data[0].description, 
+                    imageURL: data[0].imageURL || ''
+                })
             }
-            finally{
-                setLoading(false);
+            else{
+                console.log('No information found for', creatorID)
             }
         }
-        if(id){
-            fetchContentCreator()
-        }
-    }, [id])
+        fetchContentCreator()
+    }, [creatorID]);
 
-    if(loading){return <p>Loading Profile</p>}
-    if(error){return <p>'Error', {error}</p>}
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const { error } = await supabase.from("creators")
+        .update(formData).eq("name", creatorID)
+
+        if(error){
+            console.error('Error updating record:', error.message);
+        }
+        else{
+            console.log('Record updated successfully!');
+        }
+    }
+
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <label>
                 Name:
                 <input
+                name="name"
                 type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                />
+                value={formData.name  || ''}
+               onChange={handleChange}
+               />
             </label>
             <label>
                 URL:
                 <input
+                name="url"
                 type="text"
-                value={formData.url}
-                onChange={(e) => setFormData({...formData, url: e.target.value})}
+                value={formData.url  || ''}
+                onChange={handleChange}
                 />
             </label>
             <label>
             Description:
-                <input
+                <input className=""
                 type="text"
-                value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                name="description" 
+                value={formData.description  || ''}
+                onChange={handleChange}
                 />
             </label>
             <label>
             Image URL:
                 <input
                 type="text"
-                value={formData.imageURL}
-                onChange={(e) => setFormData({...formData, imageURL: e.target.value})}
+                name="imageURL" 
+                value={formData.imageURL || ''}
+                onChange={handleChange}            
                 />
             </label>
             <button className="rounded hover:rounded-lg">Save Changes</button>
