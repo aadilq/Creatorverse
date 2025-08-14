@@ -35,10 +35,14 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://imgur.com/a/AQVmrZn' title='Video Walkthrough' width='500px' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/BCkJrC.gif' title='Video Walkthrough' width='500px' alt='Video Walkthrough' />
+
+
+
+
+
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  👉🏿 GIF tool here
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
