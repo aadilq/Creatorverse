@@ -35,7 +35,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://i.imgur.com/Q9VnJ3v.gif' title='Video Walkthrough' width='500px' alt='Video Walkthrough' />
+<a href="https://imgur.com/a/rBCkJrC">Creatorverse GIF</a>
 
 
 <!-- Replace this with whatever GIF tool you used! -->
@@ -47,6 +47,9 @@ Here's a walkthrough of implemented required features:
 ## Notes
 
 Describe any challenges encountered while building the app or any additional context you'd like to add.
+
+I did encounter numerous challenges when working on building out Creatorverse, one of them how to tell our supabase database what content creator we want to edit based off of their ID.
+Essentially, when I manipulated the routes so that each route would include the creators id so that everytime I would someone would click on the content creator, supabase would know which content creator it as based off of their id. 
 
 ## License
 
