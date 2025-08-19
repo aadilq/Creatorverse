@@ -35,7 +35,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<a href="https://imgur.com/a/rBCkJrC">Creatorverse GIF</a>
+<a href="https://imgur.com/a/5PG0ZdS">Creatorverse GIF</a>
 
 
 <!-- Replace this with whatever GIF tool you used! -->
